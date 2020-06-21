@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
 import useFetch from './../custom-hooks/useFetch';
+import { render } from '@testing-library/react';
 
 const Nationality = () => {
     const configuration = {
@@ -12,10 +13,44 @@ const Nationality = () => {
         doWhenInactive: () => <h6>Insert names above</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
         doWhenFail: (error) => <h6>Error: {JSON.stringify(error)} </h6>,
-        doWhenSuccess: (rawAnswer) => <h6> {JSON.stringify(rawAnswer)} </h6>
+        doWhenSuccess: (rawAnswer) => renderWhenSucess(rawAnswer)
     }
     
-    const [namesList, setConfiguration] = useFetch(configuration);    
+    const [namesList, setConfiguration] = useFetch(configuration);
+
+    const renderWhenSucess = (answerObject) => {
+        console.log( Array.isArray(answerObject) )
+
+        const individualRender = (personObject) => {
+            return(
+                <Fragment>
+                    {personObject.name}:
+                    {personObject.country.length > 0 ? 
+                        personObject.country.map( (country, index) => {
+                        return(
+                            <span key={index}> {country.country_id} - {Math.round(country.probability*100)}% {index < personObject.country.length - 1 ? "/": ""} </span>
+                        )
+                        }) :
+                        <span>" No data about this name"</span>  
+                    }
+                </Fragment>
+            )
+        }
+
+        return(
+            <div>
+                { Array.isArray(answerObject) ? 
+                    answerObject.map( (person, index) => {
+                        return(
+                            <div key={index}>{individualRender(person)}</div>
+                        )
+                    }) : 
+                    individualRender(answerObject)
+                }
+            </div>
+        )
+    
+    }
     
     const [names, setNames] = useState("");
 
@@ -32,9 +67,9 @@ const Nationality = () => {
         } 
         else{
             configuration.doWhenInactive = ()=> <h6>Limit names exceed the max (10)</h6>;
-        }          
-          
+        }           
         setConfiguration(configuration);
+        setNames("");
     }
 
     const treatedNames = (inputNames) => {
