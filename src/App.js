@@ -9,9 +9,9 @@ import Footer from './components/Header-and-Footer/Footer';
 import Nationality from './components/Nationality/Nationality';
 
 function App() {
+  document.title = "Search many things";
   return (
-    <div>
-      
+    <div>      
 
       <BrowserRouter>
         <Header />
