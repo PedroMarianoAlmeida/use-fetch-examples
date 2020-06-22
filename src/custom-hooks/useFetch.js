@@ -7,11 +7,10 @@ const useFetch = (configurationParam) => {
     const fullAdress = (url, searchParams) => {
         let queryParams = "";
     
-        searchParams.map( (param, index) => {
+        searchParams.forEach( (param, index) => {
             const key = Object.keys(param)[0];
             queryParams += `${key}=${param[key]}`;
-            if(index < searchParams.length - 1) queryParams += '&';
-            return ""; //Without this presents a warning, and when I changed the "map" for "foreach" doesn't work                         
+            if(index < searchParams.length - 1) queryParams += '&';                   
         });
     
         return url + queryParams;

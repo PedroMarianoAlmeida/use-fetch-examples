@@ -1,6 +1,5 @@
 import React, {useState, Fragment} from 'react';
 import useFetch from './../custom-hooks/useFetch';
-import { render } from '@testing-library/react';
 
 const Nationality = () => {
     const configuration = {
@@ -76,27 +75,57 @@ const Nationality = () => {
         const inputNamesWithoutCommas = inputNames.replace(/ /g,'');
         
         let arrayOfObjectParameters = [];
-        inputNamesWithoutCommas.split(',').map(element => {
+        inputNamesWithoutCommas.split(',').forEach(element => {
             let myObject = {};
             myObject.name = element;
             arrayOfObjectParameters.push(myObject);
         });
         return arrayOfObjectParameters;
     }
+
+    const wrongAdress = () => {
+        configuration.url="wrongAdress";
+        configuration.shouldRun = true;
+        configuration.parameters = [];
+        setConfiguration(configuration);
+    }
+
+    const invalidKey = () => {
+        configuration.parameters = [ {name: "one"}, {apikey: "one"} ];
+        configuration.shouldRun = true;
+        setConfiguration(configuration);
+    }
+
+    const withourParameters = () => {
+        configuration.parameters = [ ];
+        configuration.shouldRun = true;
+        setConfiguration(configuration);
+    }
     
     return (
-        <div>
-            <h1>Nationality</h1>
-            <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predicts the nationality of a person given their name.</p>
-            <p>You can add 10 names in each search (in the free version, which I used).</p>
-            <p>Please separate each name by commas (ex.: Peter, Jonh, Michael) in the input bellow.</p>
-        
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="names" required value={names} onChange={handleChange}/>
-                <input type="submit" value="Send" />
-            </form>
+        <div className="container mb-5 pb-5">
+            <div className="row">
+                <div className="col-12">
+                    <h1 className="mt-1 mb-4">Nationality</h1>
+                    <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predicts the nationality of a person given their name.</p>
+                    <p>You can add 10 names in each search (in the free version, which I used).</p>
+                    <p>Please separate each name by commas (ex.: Peter, Jonh, Michael) in the input bellow.</p>
+                
+                    <form onSubmit={handleSubmit} className="mb-3 d-inline-block">
+                        <input type="text" placeholder="names" required value={names} onChange={handleChange}/>
+                        <input type="submit" value="Send" className="btn btn-dark mx-1"/>
+                    </form>
 
-            { namesList }
+                    <span className="ml-3">
+                        Provocated Errors:
+                        <button className="btn btn-dark mx-1" onClick={wrongAdress}>Wrong adress</button>
+                        <button className="btn btn-dark mx-1" onClick={invalidKey}>Invalid key</button>
+                        <button className="btn btn-dark mx-1" onClick={withourParameters}>Without Parameters</button>
+                    </span>
+
+                    { namesList }
+                </div>
+            </div>    
         </div>
       );
 }
