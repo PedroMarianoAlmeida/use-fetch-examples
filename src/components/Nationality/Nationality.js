@@ -82,13 +82,11 @@ const Nationality = () => {
         setNames("");
     }
 
-    const treatedNames = (inputNames) => {
-        const inputNamesWithoutCommas = inputNames.replace(/ /g,'');
-        
+    const treatedNames = (inputNames) => {        
         let arrayOfObjectParameters = [];
-        inputNamesWithoutCommas.split(',').forEach(element => {
+        inputNames.split(',').forEach(element => {
             let myObject = {};
-            myObject.name = element;
+            myObject.name = element.trim();
             arrayOfObjectParameters.push(myObject);
         });
         return arrayOfObjectParameters;
