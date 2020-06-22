@@ -6,7 +6,7 @@ const Header = () => {
         <div className="bg-dark">
             <h1 className="text-white py-3 text-center">
                 <Link to="/" className="text-white">
-                    useFetch examples
+                    Search many things
                 </Link>
             </h1>
         </div>

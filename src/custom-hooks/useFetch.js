@@ -101,7 +101,7 @@ const useFetch = (configurationParam) => {
                         console.log( "Fetch error: ", err.message );
                         console.log( "Staus: Fail");
                     }    
-                    setAnswer( configuration.doWhenFail( err ) );
+                    setAnswer( configuration.doWhenFail( {name: err.name, message: err.message} ) );
                 }                  
             }     
           }

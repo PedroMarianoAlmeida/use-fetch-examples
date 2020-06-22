@@ -1,17 +1,16 @@
 import React, {useState, Fragment} from 'react';
-import useFetch from './../custom-hooks/useFetch';
+import useFetch from './../../custom-hooks/useFetch';
 
 const Nationality = () => {
     const configuration = {
         url: "https://api.nationalize.io?",
-        //errorAPIvalue:  [ "Response", "False", "Error"] ,
         
         shouldRun: false,
         logResponses: true,
     
-        doWhenInactive: () => <h6>Insert names above</h6>,
+        doWhenInactive: () => <h6>Insert names on the input box</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
-        doWhenFail: (error) => <h6>Error: {JSON.stringify(error)} </h6>,
+        doWhenFail: (error) => <h6>Error: {error.name} - {error.message} </h6>,
         doWhenSuccess: (rawAnswer) => renderWhenSucess(rawAnswer)
     }
     
@@ -23,30 +22,42 @@ const Nationality = () => {
         const individualRender = (personObject) => {
             return(
                 <Fragment>
-                    {personObject.name}:
+                    <td className="text-center">{personObject.name}</td>
                     {personObject.country.length > 0 ? 
                         personObject.country.map( (country, index) => {
                         return(
-                            <span key={index}> {country.country_id} - {Math.round(country.probability*100)}% {index < personObject.country.length - 1 ? "/": ""} </span>
+                            <td key={index} className="text-center"> {country.country_id} - {Math.round(country.probability*100)}%</td>
                         )
                         }) :
-                        <span>" No data about this name"</span>  
+                        <td colspan="3" className="text-center bg-danger"> No data about this name</td> 
                     }
                 </Fragment>
             )
         }
 
         return(
-            <div>
-                { Array.isArray(answerObject) ? 
-                    answerObject.map( (person, index) => {
-                        return(
-                            <div key={index}>{individualRender(person)}</div>
-                        )
-                    }) : 
-                    individualRender(answerObject)
-                }
-            </div>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <td scope='col' className="text-center"><strong>Name</strong></td>
+                        <td scope='col' className="text-center"><strong>Country 1</strong></td>
+                        <td scope='col' className="text-center"><strong>Country 2</strong></td>
+                        <td scope='col' className="text-center"><strong>Country 3</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    { Array.isArray(answerObject) ? 
+                        answerObject.map( (person, index) => {
+                            return(
+                                <tr key={index}>{individualRender(person)}</tr>
+                            )
+                        }) : 
+                        <tr>{individualRender(answerObject)}</tr>
+                    }
+                    
+                </tbody>
+            </table>
         )
     
     }
@@ -105,25 +116,30 @@ const Nationality = () => {
     return (
         <div className="container mb-5 pb-5">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 col-md-6">
                     <h1 className="mt-1 mb-4">Nationality</h1>
                     <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predicts the nationality of a person given their name.</p>
                     <p>You can add 10 names in each search (in the free version, which I used).</p>
                     <p>Please separate each name by commas (ex.: Peter, Jonh, Michael) in the input bellow.</p>
-                
-                    <form onSubmit={handleSubmit} className="mb-3 d-inline-block">
+
+                    
+                    <form onSubmit={handleSubmit} className="mb-3 d-block">
                         <input type="text" placeholder="names" required value={names} onChange={handleChange}/>
                         <input type="submit" value="Send" className="btn btn-dark mx-1"/>
-                    </form>
+                    </form>                  
+                    
+                </div>
 
-                    <span className="ml-3">
-                        Provocated Errors:
-                        <button className="btn btn-dark mx-1" onClick={wrongAdress}>Wrong adress</button>
-                        <button className="btn btn-dark mx-1" onClick={invalidKey}>Invalid key</button>
-                        <button className="btn btn-dark mx-1" onClick={withourParameters}>Without Parameters</button>
-                    </span>
-
+                <div className="col-12 col-md-6 bg-light pt-5 pb-5 mb-5">
+                    <h4>Answer</h4>
                     { namesList }
+                </div>
+
+                <div className="col-12">
+                    <div>Provocated Errors (for programmers):</div>
+                    <button className="btn btn-dark m-1" onClick={wrongAdress}>Wrong adress</button>
+                    <button className="btn btn-dark m-1" onClick={invalidKey}>Invalid key</button>
+                    <button className="btn btn-dark m-1" onClick={withourParameters}>Without Parameters</button>
                 </div>
             </div>    
         </div>

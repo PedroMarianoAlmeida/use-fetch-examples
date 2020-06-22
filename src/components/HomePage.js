@@ -7,10 +7,10 @@ const HomePage = () => {
         <div className="row">
             <div className="col-12">
                 <h1 className="mt-1 mb-4">What is this website?</h1>
-                <p>It is some examples of how to apply useFetch in real free API</p>
-                <p>Click on buttons above to be redirected to each example</p>
+                <p>Have you wondered in which countries your name is more common?  Or want to find a recipe by your ingredients? Or just pass time doing a useful search (or not so useful)?</p>
+                <p>So you are in the right place! Please click in buttons above to try it out</p>
 
-                <button className="btn btn-dark mx-1"><Link to="/nationality" className="text-white">Nacionality</Link></button>
+                <button className="btn btn-dark mx-1"><Link to="/nationality" className="text-white">Nacionality Name</Link></button>
             </div>
         </div>
       </div>

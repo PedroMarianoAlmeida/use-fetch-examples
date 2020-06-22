@@ -6,7 +6,7 @@ import HomePage from './components/HomePage';
 import Header from './components/Header-and-Footer/Header';
 import Footer from './components/Header-and-Footer/Footer';
 
-import Nationality from './components/Nationality';
+import Nationality from './components/Nationality/Nationality';
 
 function App() {
   return (
