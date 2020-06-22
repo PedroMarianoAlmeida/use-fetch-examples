@@ -11,9 +11,10 @@ import Nationality from './components/Nationality';
 function App() {
   return (
     <div>
-      <Header />
+      
 
       <BrowserRouter>
+        <Header />
         <Route path="/" exact component={HomePage} />
         <Route path="/nationality" component={Nationality} />
       </BrowserRouter>
