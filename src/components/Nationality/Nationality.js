@@ -39,10 +39,10 @@ const Nationality = () => {
             <table className="table">
                 <thead>
                     <tr>
-                        <td scope='col' className="text-center"><strong>Name</strong></td>
-                        <td scope='col' className="text-center"><strong>Country 1</strong></td>
-                        <td scope='col' className="text-center"><strong>Country 2</strong></td>
-                        <td scope='col' className="text-center"><strong>Country 3</strong></td>
+                        <th scope='col' className="text-center">Name</th>
+                        <th scope='col' className="text-center">Country 1</th>
+                        <th scope='col' className="text-center">Country 2</th>
+                        <th scope='col' className="text-center">Country 3</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,6 +108,7 @@ const Nationality = () => {
     }
 
     const withourParameters = () => {
+        configuration.url = "https://api.nationalize.io";
         configuration.parameters = [ ];
         configuration.shouldRun = true;
         setConfiguration(configuration);
