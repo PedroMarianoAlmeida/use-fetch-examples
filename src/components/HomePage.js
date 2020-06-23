@@ -11,7 +11,7 @@ const HomePage = () => {
                 <p>So you are in the right place! Please click in buttons above to try it out</p>
 
                 <button className="btn btn-dark mx-1"><Link to="/nationality" className="text-white">Nacionality Name</Link></button>
-                <button className="btn btn-dark mx-1">Recipe by ingredients <br /> (in constrution)</button>
+                <button className="btn btn-dark mx-1"><Link to="/recipe" className="text-white">Recipe by ingredients</Link></button>
             </div>
         </div>
       </div>

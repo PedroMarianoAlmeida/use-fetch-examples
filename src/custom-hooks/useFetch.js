@@ -72,10 +72,15 @@ const useFetch = (configurationParam) => {
             let result;
             let customizeError = false;
             try{
-                const adress = fullAdress(configuration.url, configuration.parameters);
-                if (configuration.logResponses) console.log( "Adress fetching: ", adress );
-                let response = await fetch( adress );
-                if(!response.ok) throw Error(response.statusText);
+                const adress =  configuration.hasOwnProperty('parameters') ?
+                    fullAdress(configuration.url, configuration.parameters) : 
+                    configuration.url;
+
+                if (configuration.logResponses) console.log( "Adress fetching: ", adress );             
+                let response = configuration.hasOwnProperty('fetchInicialization') ? 
+                    await fetch( adress, configuration.fetchInicialization) :
+                    await fetch( adress ); 
+                if(!response.ok) throw Error(response);
     
                 result = await response.json();
                 
@@ -98,7 +103,7 @@ const useFetch = (configurationParam) => {
             catch (err){                                 
                 if (!customizeError) {
                     if (configuration.logResponses) {
-                        console.log( "Fetch error: ", err.message );
+                        console.log( "Fetch error: ", err );
                         console.log( "Staus: Fail");
                     }    
                     setAnswer( configuration.doWhenFail( {name: err.name, message: err.message} ) );

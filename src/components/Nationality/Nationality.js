@@ -117,7 +117,7 @@ const Nationality = () => {
             <div className="row">
                 <div className="col-12 col-md-6">
                     <h1 className="mt-1 mb-4">Nationality</h1>
-                    <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predicts the nationality of a person given their name.</p>
+                    <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predict the nationality of a person given their name.</p>
                     <p>You can add 10 names in each search (in the free version, which I used).</p>
                     <p>Please separate each name by commas (ex.: Peter, Jonh, Michael) in the input bellow.</p>
 
