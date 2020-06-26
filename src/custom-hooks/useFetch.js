@@ -20,31 +20,27 @@ const useFetch = (configurationParam) => {
         let shouldRun;
         const checkingUserInput = () => {
             const configurationCopy = {...configuration};
-            const keys = Object.keys(configurationCopy);
-            if( !keys.includes("shouldRun") ) {
-                shouldRun = true;
-            }
-            else{
-                shouldRun = configuration.shouldRun;
-            }          
+
+            if( !configurationCopy.hasOwnProperty('shouldRun') ) shouldRun = true;
+            else shouldRun = configuration.shouldRun;       
             
-            if( !keys.includes("url") ){
+            if( !configurationCopy.hasOwnProperty('url') ){
                 console.log("URL property is obligatory, this HOOK is inactive");
                 shouldRun = false;
             }            
 
-            if( !keys.includes("logResponses") ) configurationCopy.logResponses = true;
-
-            if( !keys.includes("doWhenInactive") ) configurationCopy.doWhenInactive = "";
-            if( !keys.includes("doWhenFetching") ) configurationCopy.doWhenFetching = "";
-            if( !keys.includes("doWhenSuccess") ) {
+            if( !configurationCopy.hasOwnProperty("logResponses") ) configurationCopy.logResponses = true;
+            
+            if( !configurationCopy.hasOwnProperty ("doWhenInactive") ) configurationCopy.doWhenInactive = "";
+            if( !configurationCopy.hasOwnProperty("doWhenFetching") ) configurationCopy.doWhenFetching = "";
+            if( !configurationCopy.hasOwnProperty("doWhenSuccess") ) {
                 configurationCopy.doWhenSuccess = "";
                 console.log("Your hook doesn't return a value after fetching, all the informations will be in console.log");
                 configurationCopy.logResponses = true;
             }
-            if( !keys.includes("doWhenFail") ) configurationCopy.doWhenFail = "";
+            if( !configurationCopy.hasOwnProperty("doWhenFail") ) configurationCopy.doWhenFail = "";
 
-            if( keys.includes("parameters") ) {
+            if( configurationCopy.hasOwnProperty("parameters") ) {
                 if ( !Array.isArray( configurationCopy.parameters ) ) {
                     console.log("The parameters propriety should be an array (with each parameter in a {key: value} object). This HOOK is inactive");
                     shouldRun = false;
@@ -79,12 +75,12 @@ const useFetch = (configurationParam) => {
                 if (configuration.logResponses) console.log( "Adress fetching: ", adress );             
                 let response = configuration.hasOwnProperty('fetchInicialization') ? 
                     await fetch( adress, configuration.fetchInicialization) :
-                    await fetch( adress ); 
-                if(!response.ok) throw Error(response);
+                    await fetch( adress )
+                if(!response.ok) throw Error(response.statusText);
     
                 result = await response.json();
                 
-                if(Object.keys(configuration).includes("errorAPIvalue") ) {
+                if(configuration.hasOwnProperty("errorAPIvalue") ) {
                     if(result[configuration.errorAPIvalue[0]] === configuration.errorAPIvalue[1] ) {
                         customizeError = true;
                         console.log("Customize Error: ", result[configuration.errorAPIvalue[2]])
