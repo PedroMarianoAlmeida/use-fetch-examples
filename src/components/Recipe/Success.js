@@ -18,16 +18,27 @@ const Success = (props) => {
         
         let realMissedIngredients = [];
 
-        userIngredients.forEach( (ingredient) => {
-            recipeItem.missedIngredients.forEach ( (missedIngredient) => {
-                //console.log(ingredient, missedIngredient.name);
-                if ( missedIngredient.name.includes(ingredient) ) missedIngredientCount--;
+        recipeItem.missedIngredients.forEach ( (missedIngredient) => {
+            let realMissedIngredient = true;
+            userIngredients.forEach( (ingredient) => {
+                if ( missedIngredient.name.includes(ingredient) ){
+                    missedIngredientCount--;
+                    realMissedIngredient = false;
+                }
             })
+            if (realMissedIngredient) realMissedIngredients.push(missedIngredient.name);
         })
+
         if (missedIngredientCount === 0) return <p>No missing ingredients</p>        
         
+        let stringRealMissedIngredients = "";
+        realMissedIngredients.forEach((ingredient, index) => {
+            stringRealMissedIngredients += ingredient;
+            if(index < realMissedIngredients.length - 1) stringRealMissedIngredients += ", "
+        });
+        
         return (
-            <p>{missedIngredientCount} missing Ingredients</p>
+            <p><strong>{`${missedIngredientCount} missing ingredient${missedIngredientCount !== 1 ? "s" : ""}:`}</strong> {stringRealMissedIngredients}</p>
         )
     }
 
