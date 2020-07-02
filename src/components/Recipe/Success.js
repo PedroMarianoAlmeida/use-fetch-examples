@@ -9,6 +9,27 @@ const Success = (props) => {
    console.log( props.ingredients );
 
    const listOfRecipies = props.result.rawAnswer;
+   const userIngredients = props.ingredients.objectToParameters.ingredients.split(',');
+   console.log(userIngredients);
+
+    const missingIngredients = (recipeItem) => {
+        let missedIngredientCount = recipeItem.missedIngredientCount;
+        if (missedIngredientCount === 0) return <p>No missing ingredients</p>
+        
+        let realMissedIngredients = [];
+
+        userIngredients.forEach( (ingredient) => {
+            recipeItem.missedIngredients.forEach ( (missedIngredient) => {
+                //console.log(ingredient, missedIngredient.name);
+                if ( missedIngredient.name.includes(ingredient) ) missedIngredientCount--;
+            })
+        })
+        if (missedIngredientCount === 0) return <p>No missing ingredients</p>        
+        
+        return (
+            <p>{missedIngredientCount} missing Ingredients</p>
+        )
+    }
 
     return (         
         <div className='row'>
@@ -22,11 +43,7 @@ const Success = (props) => {
                             </div>
                             <div className='col-9 my-auto'>
                                 <h5>{recipe.title}</h5>
-                                <p>
-                                    {
-
-                                    }
-                                </p>
+                                { missingIngredients(recipe) }
                             </div>                          
                         </div>
                     </div>
