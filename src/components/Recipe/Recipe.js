@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import useFetch from './../../custom-hooks/useFetch';
 
 import API_KEYS from './../../api-keys';
-import Sucess from './Success';
+import Success from './Success';
 
 const Recipe = () => {
-    
+    let objectToParameters = '';
     const configuration = {
         url: "https://api.spoonacular.com/recipes/findByIngredients?",
         parameters:  [ { apiKey: API_KEYS.recipe }, { number: 2} ],
@@ -16,12 +16,14 @@ const Recipe = () => {
         doWhenInactive: () => <h6>Insert ingredients on the input box</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
         doWhenFail: (error) => <h6>Error: {error.name} - {error.message} </h6>,
-        doWhenSuccess: (rawAnswer) => <Sucess rawAnswer={rawAnswer} />
+        doWhenSuccess: (rawAnswer) => <Success result={{rawAnswer}} ingredients={{objectToParameters}} />
     }
 
     const [recipeList, setConfiguration] = useFetch(configuration);
 
     const [ingredientInput, setingredientInput] = useState("");
+
+    //const [ingredientListToSucessComponent, setIngredientListtoSucessComponent] = uesState("");
 
     const handleChange = (e) => {
         setingredientInput(e.target.value);
@@ -30,17 +32,18 @@ const Recipe = () => {
 
     const handleSubmit= (e) => {
         e.preventDefault();
-        if ( configuration.hasOwnProperty('ingredients') ) delete configuration.ingredients;
-        const objectToParameters = tratedIngredientList(ingredientInput);
+        if ( configuration.parameters.hasOwnProperty('ingredients') ) delete configuration.ingredients;
+        objectToParameters = tratedIngredientList(ingredientInput);
         configuration.parameters.push(objectToParameters);
         configuration.shouldRun = true; 
         setConfiguration(configuration);
-        setingredientInput("");
     }
 
     const tratedIngredientList = (ingredientList) => {
         return { ingredients: ingredientList.toLowerCase().replace(/ /g, '') };
     }
+
+
 
     return ( 
         <div className="container mb-5 pb-5">
