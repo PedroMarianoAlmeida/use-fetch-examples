@@ -38,7 +38,7 @@ const Success = (props) => {
         const userIngredientsList = userIngredients.split(',')
 
         const unusedUserIngredients = userIngredientsList.filter( (userIngredient) => !allRecipeIngredientsName.includes(userIngredient) );
-        if (unusedUserIngredients.length === 0) return <p>Use all ingredients</p>
+        if (unusedUserIngredients.length === 0) return <p>Use all your ingredients</p>
 
         let stringRealUnusedIngredients = "";
         unusedUserIngredients.forEach((ingredient, index) => {
