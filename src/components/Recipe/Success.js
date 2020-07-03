@@ -9,36 +9,27 @@ const Success = (props) => {
    console.log( props.ingredients );
 
    const listOfRecipies = props.result.rawAnswer;
-   const userIngredients = props.ingredients.objectToParameters.ingredients.split(',');
+   const userIngredients = props.ingredients.objectToParameters.ingredients;
    console.log(userIngredients);
 
+    //Verify if the missed ingredients are realy missig or the user input is a part of complete name missed ingredient
     const missingIngredients = (recipeItem) => {
-        let missedIngredientCount = recipeItem.missedIngredientCount;
-        if (missedIngredientCount === 0) return <p>No missing ingredients</p>
+
+        if (recipeItem.missedIngredientCount === 0) return <p>No missing ingredients</p>
         
-        let realMissedIngredients = [];
+        let realMissedIngredients = recipeItem.missedIngredients.filter( (missedIngredient) => !userIngredients.includes(missedIngredient.name));
 
-        recipeItem.missedIngredients.forEach ( (missedIngredient) => {
-            let realMissedIngredient = true;
-            userIngredients.forEach( (ingredient) => {
-                if ( missedIngredient.name.includes(ingredient) ){
-                    missedIngredientCount--;
-                    realMissedIngredient = false;
-                }
-            })
-            if (realMissedIngredient) realMissedIngredients.push(missedIngredient.name);
-        })
 
-        if (missedIngredientCount === 0) return <p>No missing ingredients</p>        
+        if (realMissedIngredients.length === 0) return <p>No missing ingredients</p>        
         
         let stringRealMissedIngredients = "";
         realMissedIngredients.forEach((ingredient, index) => {
-            stringRealMissedIngredients += ingredient;
+            stringRealMissedIngredients += ingredient.name;
             if(index < realMissedIngredients.length - 1) stringRealMissedIngredients += ", "
         });
         
         return (
-            <p><strong>{`${missedIngredientCount} missing ingredient${missedIngredientCount !== 1 ? "s" : ""}:`}</strong> {stringRealMissedIngredients}</p>
+            <p><strong>{`${realMissedIngredients.length} missing ingredient${realMissedIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealMissedIngredients}</p>
         )
     }
 
