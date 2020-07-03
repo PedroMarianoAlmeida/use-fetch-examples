@@ -45,9 +45,6 @@ const Success = (props) => {
             stringRealUnusedIngredients += ingredient;
             if(index < unusedUserIngredients.length - 1) stringRealUnusedIngredients += ", "
         });
-
-        console.log(allRecipeIngredientsName);
-        console.log(unusedUserIngredients);
         
         return (
             <p><strong>{`${unusedUserIngredients.length} missing ingredient${unusedUserIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealUnusedIngredients}</p>
@@ -61,11 +58,14 @@ const Success = (props) => {
                 return(
                     <div key={recipe.id} className='col-12 my-2'>
                         <div className='row'>
+                            <div className='col-12'>
+                            <h5 className="text-center bg-dark text-white py-2">{recipe.title}</h5>
+                            </div>
+                            
                             <div className="col-3">
                                 <img className="img-fluid" src={recipe.image}/>                               
                             </div>
-                            <div className='col-9 my-auto'>
-                                <h5>{recipe.title}</h5>
+                            <div className='col-9 my-auto'>                   
                                 { missingIngredients(recipe) }
                                 { unusedIngredients(recipe) }
                             </div>                          
