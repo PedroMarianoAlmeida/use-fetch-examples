@@ -11,7 +11,7 @@ const Recipe = () => {
         parameters:  [ { apiKey: API_KEYS.recipe }, { number: 2} ],
         
         shouldRun: false,
-        logResponses: true,
+        logResponses: false,
     
         doWhenInactive: () => <h6>Insert ingredients on the input box</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
