@@ -1,4 +1,6 @@
 import React from 'react';
+import RecipeDetails from './RecipeDetails/RecipeDetails';
+import Modal from 'react-bootstrap/Modal'
 /*
 Para pegar os detalhes da receita
 https://spoonacular.com/food-api/docs#Get-Recipe-Information-Bulk
@@ -10,7 +12,6 @@ const Success = (props) => {
 
    const listOfRecipies = props.result.rawAnswer;
    const userIngredients = props.ingredients.objectToParameters.ingredients.split(',');
-   console.log(userIngredients);
 
     //Verify if the missed ingredients are realy missig or the user input is a part of complete name missed ingredient
     const missingIngredients = (recipeItem) => {
@@ -23,7 +24,6 @@ const Success = (props) => {
             }
             return true;
         });
-        console.log("Missing: ", realMissedIngredients)
         if (realMissedIngredients.length === 0) return <p>No missing ingredients</p>        
         
         let stringRealMissedIngredients = "";
@@ -55,7 +55,15 @@ const Success = (props) => {
         )
     }
 
+    const [showModal, setShowModal] = React.useState(false);
+    const [recipeId, setRecipeId] = React.useState("");
+    const handleClick = (e) => {
+        setShowModal(true);
+        setRecipeId(e.target.id);
+    }
+
     return (         
+        <React.Fragment>
         <div className='row'>
 
             {listOfRecipies.map( (recipe) => {
@@ -67,17 +75,29 @@ const Success = (props) => {
                             </div>
                             
                             <div className="col-4">
-                                <img className="img-fluid" src={recipe.image}/>                               
+                                <img className="img-fluid" src={recipe.image} id={recipe.id} onClick={handleClick}/>                               
                             </div>
                             <div className='col-8 my-auto'>                   
                                 { missingIngredients(recipe) }
                                 { unusedIngredients(recipe) }
                             </div>                          
-                        </div>
+                        </div> 
                     </div>
                 )
             })}
+
+
         </div>
+            <Modal show={showModal} >
+                <RecipeDetails recipeId={recipeId} />
+                <Modal.Footer className="d-flex justify-content-center">
+                    <button onClick={() => setShowModal(false)}
+                    className="btn btn-dark">
+                        Close Recipe
+                    </button>
+                </Modal.Footer>
+            </Modal>
+        </React.Fragment>
      );
 }
  
