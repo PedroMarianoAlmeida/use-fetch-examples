@@ -33,7 +33,7 @@ const Success = (props) => {
         });
         
         return (
-            <p><strong>{`${realMissedIngredients.length} missing ingredient${realMissedIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealMissedIngredients}</p>
+            <p><strong>{`${realMissedIngredients.length} missing ingredient${realMissedIngredients.length !== 1 ? "s" : ""}: `}</strong> {stringRealMissedIngredients} <br /> <small>(it is in the recipe but you didn't insert the ingredient on search)</small></p>
         )
     }
 
@@ -51,7 +51,7 @@ const Success = (props) => {
         });
         
         return (
-            <p><strong>{`${unusedUserIngredients.length} unused ingredient${unusedUserIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealUnusedIngredients}</p>
+            <p><strong>{`${unusedUserIngredients.length} unused ingredient${unusedUserIngredients.length !== 1 ? "s" : ""}: `}</strong>{stringRealUnusedIngredients} <br /> <small>(you inserted on search but isn't used in this recipe)</small></p>
         )
     }
 
@@ -67,7 +67,7 @@ const Success = (props) => {
     return (         
         <React.Fragment>
             <div className='row'>
-
+                <div className='col-12'>Click in the photo to see de recipe steps</div>
                 {listOfRecipies.map( (recipe) => {
                     return(
                         <div key={recipe.id} className='col-12 my-2'>
