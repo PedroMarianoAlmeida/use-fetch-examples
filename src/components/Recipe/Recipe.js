@@ -8,7 +8,7 @@ const Recipe = () => {
     let objectToParameters = '';
     const configuration = {
         url: "https://api.spoonacular.com/recipes/findByIngredients?",
-        parameters:  [ { apiKey: API_KEYS.recipe }, { number: 2} ],
+        parameters:  [ { apiKey: API_KEYS.recipe }, { number: 10} ],
         
         shouldRun: false,
         logResponses: false,
