@@ -1,6 +1,8 @@
 import React, {useState, Fragment} from 'react';
 import useFetch from './../../custom-hooks/useFetch';
 
+import countryNames from './countryNames';
+
 const Nationality = () => {
     const configuration = {
         url: "https://api.nationalize.io?",
@@ -22,11 +24,14 @@ const Nationality = () => {
         const individualRender = (personObject) => {
             return(
                 <Fragment>
-                    <td className="text-center">{personObject.name}</td>
+                    <td className="text-center align-middle">{personObject.name}</td>
                     {personObject.country.length > 0 ? 
                         personObject.country.map( (country, index) => {
                         return(
-                            <td key={index} className="text-center"> {country.country_id} - {Math.round(country.probability*100)}%</td>
+                            <td key={index} className="text-center">
+                                <div>{countryNames[country.country_id]}</div> 
+                                <div>{Math.round(country.probability*100)}%</div> 
+                            </td>
                         )
                         }) :
                         <td colspan="3" className="text-center bg-danger"> No data about this name</td> 
