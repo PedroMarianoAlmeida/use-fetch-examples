@@ -90,7 +90,7 @@ const Success = (props) => {
                 })}
             </div>
 
-            <Modal show={showModal} size="lg">
+            <Modal show={showModal} size="lg" centered>
                 <Modal.Header className="d-flex justify-content-center">
                     <Modal.Title className='text-center'>
                         {recipeTitle}
