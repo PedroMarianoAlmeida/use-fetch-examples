@@ -5,6 +5,8 @@ The propose of this web app is to show to others web developers how to use my ho
 
 **[Try it here](https://enigmatic-plateau-62419.herokuapp.com/)**
 
+![Screen recorded](readme-documents/screen-recorded.gif)
+
 And useFetch repo is [here](https://github.com/PedroMarianoAlmeida/useFech-react-hook)
 
 # Tech Stack
@@ -12,7 +14,9 @@ And useFetch repo is [here](https://github.com/PedroMarianoAlmeida/useFech-react
     - Hooks (useState, useEffect and **useFetch**)
     - React Router (for navegation)
     - Bootstrap (all style and diagramming)
-- [Nationalize API](https://nationalize.io/) (given a name, returns in which countries this name is more common)
+    - Bootstrap - React (modal Component)
+- [Nationalize API](https://nationalize.io/) (given a name list, returns in which countries this name is more common)
+- [Spoonacular API](https://spoonacular.com/food-api) (given a ingredient list, returns recipies with this ingredients)
 - Heroku (host and deploy)
 
 # Run Locally
