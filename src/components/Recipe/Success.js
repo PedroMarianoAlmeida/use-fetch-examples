@@ -5,11 +5,11 @@ https://spoonacular.com/food-api/docs#Get-Recipe-Information-Bulk
 */
 
 const Success = (props) => {
-   console.log( props.result );
-   console.log( props.ingredients );
+   //console.log( props.result );
+   //console.log( props.ingredients );
 
    const listOfRecipies = props.result.rawAnswer;
-   const userIngredients = props.ingredients.objectToParameters.ingredients;
+   const userIngredients = props.ingredients.objectToParameters.ingredients.split(',');
    console.log(userIngredients);
 
     //Verify if the missed ingredients are realy missig or the user input is a part of complete name missed ingredient
@@ -17,7 +17,13 @@ const Success = (props) => {
 
         if (recipeItem.missedIngredientCount === 0) return <p>No missing ingredients</p>
         
-        let realMissedIngredients = recipeItem.missedIngredients.filter( (missedIngredient) => !userIngredients.includes(missedIngredient.name));
+        const realMissedIngredients = recipeItem.missedIngredients.filter( (missedIngredient) => {
+            for(let userIngredient of userIngredients) {
+                if ( missedIngredient.name.includes(userIngredient) ) return false          
+            }
+            return true;
+        });
+        console.log("Missing: ", realMissedIngredients)
         if (realMissedIngredients.length === 0) return <p>No missing ingredients</p>        
         
         let stringRealMissedIngredients = "";
@@ -34,10 +40,8 @@ const Success = (props) => {
     const unusedIngredients = (recipeItem) => {
         const allRecipeIngredients = [ ...[recipeItem.usedIngredients], ...[recipeItem.missedIngredients] ].flat(1);
         const allRecipeIngredientsName = allRecipeIngredients.reduce( (acumulator, ingredientObject) => acumulator + ingredientObject.name + " - ", "" )
-        
-        const userIngredientsList = userIngredients.split(',')
 
-        const unusedUserIngredients = userIngredientsList.filter( (userIngredient) => !allRecipeIngredientsName.includes(userIngredient) );
+        const unusedUserIngredients = userIngredients.filter( (userIngredient) => !allRecipeIngredientsName.includes(userIngredient) );
         if (unusedUserIngredients.length === 0) return <p>Use all your ingredients</p>
 
         let stringRealUnusedIngredients = "";
@@ -47,7 +51,7 @@ const Success = (props) => {
         });
         
         return (
-            <p><strong>{`${unusedUserIngredients.length} missing ingredient${unusedUserIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealUnusedIngredients}</p>
+            <p><strong>{`${unusedUserIngredients.length} unused ingredient${unusedUserIngredients.length !== 1 ? "s" : ""}:`}</strong> {stringRealUnusedIngredients}</p>
         )
     }
 
@@ -62,10 +66,10 @@ const Success = (props) => {
                             <h5 className="text-center bg-dark text-white py-2">{recipe.title}</h5>
                             </div>
                             
-                            <div className="col-3">
+                            <div className="col-4">
                                 <img className="img-fluid" src={recipe.image}/>                               
                             </div>
-                            <div className='col-9 my-auto'>                   
+                            <div className='col-8 my-auto'>                   
                                 { missingIngredients(recipe) }
                                 { unusedIngredients(recipe) }
                             </div>                          

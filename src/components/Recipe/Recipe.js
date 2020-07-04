@@ -51,7 +51,7 @@ const Recipe = () => {
                 <div className="col-12 col-md-6">
                     <h1 className="mt-1 mb-4">Recipe</h1>
                     <p>This page utilizes <a href="https://spoonacular.com/food-api" target="_blank" rel="noopener noreferrer">spoonacular API</a> to find recipies by your ingredients.</p>
-                    <p>Please separate each ingredients by commas (ex.: onion, garlic) in the input bellow.</p>
+                    <p>Please separate each ingredients by commas (eg.: onion, garlic) in the input bellow.</p>
                     
                     <form onSubmit={handleSubmit} className="mb-3 d-block">
                         <input type="text" placeholder="ingredients" required value={ingredientInput} onChange={handleChange}/>

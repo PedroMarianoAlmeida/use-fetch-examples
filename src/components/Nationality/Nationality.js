@@ -119,7 +119,7 @@ const Nationality = () => {
                     <h1 className="mt-1 mb-4">Nationality</h1>
                     <p>This page utilizes <a href="https://nationalize.io/" target="_blank" rel="noopener noreferrer">nationalize.io</a> to predict the nationality of a person given their name.</p>
                     <p>You can add 10 names in each search (in the free version, which I used).</p>
-                    <p>Please separate each name by commas (ex.: Peter, Jonh, Michael) in the input bellow.</p>
+                    <p>Please separate each name by commas (eg.: Peter, Jonh, Michael) in the input bellow.</p>
 
                     
                     <form onSubmit={handleSubmit} className="mb-3 d-block">
