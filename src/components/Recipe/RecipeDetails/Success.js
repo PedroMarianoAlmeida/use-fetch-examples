@@ -10,7 +10,7 @@ const Success = (props) => {
                         <h4 key={index}>{macrosteps.name}</h4>
                         {macrosteps.steps.map( (step, index)=>{
                             return(
-                                <p key={index}>{step.step}</p>
+                                <p key={index} dangerouslySetInnerHTML={{ __html: step.step }} ></p>                             
                             )
                         })}
                         <p>More details in <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">oficial recipe website</a></p>
