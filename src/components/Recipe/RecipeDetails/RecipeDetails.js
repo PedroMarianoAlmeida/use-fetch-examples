@@ -1,10 +1,10 @@
 import React from 'react';
-import Modal from 'react-bootstrap/Modal'
+
+import useFetch from './../../../custom-hooks/useFetch'
 
 const RecipeDetails = (props) => {
-    console.log("datais")
     return (
-        <Modal.Body>{props.recipeId}</Modal.Body>
+        <h3>id: {props.recipeId}</h3>
       );
 }
  

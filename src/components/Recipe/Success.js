@@ -57,45 +57,57 @@ const Success = (props) => {
 
     const [showModal, setShowModal] = React.useState(false);
     const [recipeId, setRecipeId] = React.useState("");
+    const [recipeTitle, setRecipeTitle] = React.useState("");
     const handleClick = (e) => {
         setShowModal(true);
         setRecipeId(e.target.id);
+        setRecipeTitle(e.target.alt);
     }
 
     return (         
         <React.Fragment>
-        <div className='row'>
+            <div className='row'>
 
-            {listOfRecipies.map( (recipe) => {
-                return(
-                    <div key={recipe.id} className='col-12 my-2'>
-                        <div className='row'>
-                            <div className='col-12'>
-                            <h5 className="text-center bg-dark text-white py-2">{recipe.title}</h5>
-                            </div>
-                            
-                            <div className="col-4">
-                                <img className="img-fluid" src={recipe.image} id={recipe.id} onClick={handleClick}/>                               
-                            </div>
-                            <div className='col-8 my-auto'>                   
-                                { missingIngredients(recipe) }
-                                { unusedIngredients(recipe) }
-                            </div>                          
-                        </div> 
-                    </div>
-                )
-            })}
+                {listOfRecipies.map( (recipe) => {
+                    return(
+                        <div key={recipe.id} className='col-12 my-2'>
+                            <div className='row'>
+                                <div className='col-12'>
+                                <h5 className="text-center bg-dark text-white py-2">{recipe.title}</h5>
+                                </div>
+                                
+                                <div className="col-4">
+                                    <img className="img-fluid" src={recipe.image} id={recipe.id} 
+                                    alt={recipe.title} onClick={handleClick} style={{cursor: "pointer"}}/>                               
+                                </div>
+                                <div className='col-8 my-auto'>                   
+                                    { missingIngredients(recipe) }
+                                    { unusedIngredients(recipe) }
+                                </div>                          
+                            </div> 
+                        </div>
+                    )
+                })}
+            </div>
 
+            <Modal show={showModal} size="lg">
+                <Modal.Header className="d-flex justify-content-center">
+                    <Modal.Title className='text-center'>
+                        {recipeTitle}
+                    </Modal.Title>
+                </Modal.Header>
 
-        </div>
-            <Modal show={showModal} >
-                <RecipeDetails recipeId={recipeId} />
+                <Modal.Body>
+                    <RecipeDetails recipeId={recipeId} />
+                </Modal.Body>
+
                 <Modal.Footer className="d-flex justify-content-center">
                     <button onClick={() => setShowModal(false)}
                     className="btn btn-dark">
                         Close Recipe
                     </button>
                 </Modal.Footer>
+
             </Modal>
         </React.Fragment>
      );
