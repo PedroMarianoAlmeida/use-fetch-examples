@@ -96,26 +96,6 @@ const Nationality = () => {
         });
         return arrayOfObjectParameters;
     }
-
-    const wrongAdress = () => {
-        configuration.url="wrongAdress";
-        configuration.shouldRun = true;
-        configuration.parameters = [];
-        setConfiguration(configuration);
-    }
-
-    const invalidKey = () => {
-        configuration.parameters = [ {name: "one"}, {apikey: "one"} ];
-        configuration.shouldRun = true;
-        setConfiguration(configuration);
-    }
-
-    const withourParameters = () => {
-        configuration.url = "https://api.nationalize.io";
-        configuration.parameters = [ ];
-        configuration.shouldRun = true;
-        setConfiguration(configuration);
-    }
     
     return (
         <div className="container mb-5 pb-5">
@@ -139,12 +119,6 @@ const Nationality = () => {
                     { namesList }
                 </div>
 
-                <div className="col-12">
-                    <div>Provocated Errors (for programmers):</div>
-                    <button className="btn btn-dark m-1" onClick={wrongAdress}>Wrong adress</button>
-                    <button className="btn btn-dark m-1" onClick={invalidKey}>Invalid key</button>
-                    <button className="btn btn-dark m-1" onClick={withourParameters}>Without Parameters</button>
-                </div>
             </div>    
         </div>
       );
