@@ -16,7 +16,7 @@ const RecipeDetails = (props) => {
     
         doWhenInactive: () => <h6>Something goes wrong, close card</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
-        doWhenFail: (error) => <h6>Error: {error.name} - {error.message} </h6>,
+        doWhenFail: (error) => <h6>Number of request expired for today, come back tomorow</h6>,
         doWhenSuccess: (rawAnswer) => <Success result={{rawAnswer}} />
     }
 
