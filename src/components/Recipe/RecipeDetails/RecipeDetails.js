@@ -12,7 +12,7 @@ const RecipeDetails = (props) => {
         parameters:  [ { apiKey: API_KEYS.recipe }, {ids: props.recipeId} ],
         
         shouldRun: true,
-        logResponses: true,
+        logResponses: false,
     
         doWhenInactive: () => <h6>Something goes wrong, close card</h6>,
         doWhenFetching: () => <h6>...Loading</h6>,
